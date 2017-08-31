@@ -1,0 +1,53 @@
+@(message: String)
+
+@main("Welcome to Prax") {
+    <script>
+            $(document).ready(function() {
+
+                $.fn.serializeObject = function () {
+                    var o = {};
+                    var a = this.serializeArray();
+                    $.each(a, function () {
+                        o[this.name]=this.value
+                    });
+                    return o;
+                };
+
+                $('#frmLocation').submit(function (e) {
+                    var formData = JSON.stringify($('#frmLocation').serializeObject());
+                   /* $.ajax({
+                        type: 'GET',
+                        data: formData,
+                        url: '@routes.HomeController.receiveJsonAbc()',
+                        success: function(){
+                            alert("Wohoooo!!");
+                        }
+                    });*/
+                    return true;
+                });
+
+
+            });
+    </script>
+
+    <form id="frmLocation" action="@routes.HomeController.handleUpdates()" method="post">
+        <label for="username"> Username</label>
+        <input type="text" name="username"/>
+        <br/>
+        <br/>
+        <label for="timestamp">Time</label>
+        <input type="datetime-local" name="timestamp"/>
+        <br/>
+        <br/>
+        <label for="latitude">Latitude</label>
+        <input type="text" name="latitude"/>
+        <br/>
+        <br/>
+        <label for="longitude">Longitude</label>
+        <input type="text" name="longitude"/>
+        <br/>
+        <br/>
+        <input type="submit">
+    </form>
+
+}
